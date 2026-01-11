@@ -1,0 +1,44 @@
+<div class="container mt-3">
+  <h2>Produits</h2>
+
+  <div class="mb-3">
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    <div *ngIf="success" class="alert alert-success">{{success}}</div>
+  </div>
+
+  <form class="row g-3 mb-4" (ngSubmit)="addProduct()">
+    <div class="col-md-4">
+      <label class="form-label">Nom</label>
+      <input class="form-control" [(ngModel)]="newProduct.name" name="name" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Prix</label>
+      <input class="form-control" type="number" min="0" [(ngModel)]="newProduct.price" name="price" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Quantité</label>
+      <input class="form-control" type="number" min="0" [(ngModel)]="newProduct.quantity" name="quantity" required>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-primary w-100" type="submit" [disabled]="saving">Ajouter</button>
+    </div>
+  </form>
+
+  <table class="table table-striped" *ngIf="products?.length">
+    <thead>
+    <tr>
+      <th>ID</th> <th>Nom</th> <th>Prix</th> <th>Quantité</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of products">
+        <td>{{p.id}}</td>
+        <td>{{p.name}}</td>
+        <td>{{p.price}}</td>
+        <td>{{p.quantity}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!products?.length && !loading" class="text-muted">Aucun produit.</div>
+</div>

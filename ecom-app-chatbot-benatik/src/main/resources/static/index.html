@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Bot</title>
+  <style>
+    :root {
+      --bg: #0b1021;
+      --card: #111831;
+      --accent: #5de4c7;
+      --text: #e9ecf2;
+      --muted: #9aa4c3;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(93, 228, 199, 0.08), transparent 25%),
+                  radial-gradient(circle at 80% 10%, rgba(93, 228, 199, 0.08), transparent 25%),
+                  linear-gradient(145deg, #0b1021 0%, #0d1328 50%, #0b1021 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+    .shell {
+      width: min(960px, 100%);
+      background: var(--card);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .shell::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(93, 228, 199, 0.08), transparent 30%, transparent 70%, rgba(93, 228, 199, 0.06));
+      pointer-events: none;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    h1 { margin: 0; font-size: 1.4rem; letter-spacing: 0.5px; }
+    .hint { color: var(--muted); font-size: 0.95rem; margin: 0; }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+      position: relative;
+      z-index: 1;
+    }
+    label { font-weight: 600; color: var(--muted); }
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      resize: vertical;
+      font-size: 1rem;
+    }
+    textarea:focus { outline: 2px solid var(--accent); box-shadow: 0 0 0 3px rgba(93, 228, 199, 0.25); }
+    button {
+      align-self: flex-start;
+      padding: 12px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: linear-gradient(120deg, var(--accent), #8ff5e1);
+      color: #04111f;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+    button:hover { transform: translateY(-1px); box-shadow: 0 12px 28px rgba(93, 228, 199, 0.25); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .response {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      white-space: pre-wrap;
+      min-height: 64px;
+    }
+    .status { color: var(--muted); font-size: 0.9rem; margin: 0; }
+    @media (max-width: 640px) {
+      .shell { padding: 22px; }
+      h1 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="header">
+      <div>
+        <h1>Chat Bot</h1>
+        <p class="hint">Posez une question, la réponse vient de /chat.</p>
+      </div>
+    </div>
+    <form id="chat-form">
+      <label for="query">Votre question</label>
+      <textarea id="query" name="query" placeholder="Exemple : Raconte-moi une blague courte"></textarea>
+      <div class="actions">
+        <button type="submit" id="send">Envoyer</button>
+      </div>
+      <p class="status" id="status"></p>
+      <div class="response" id="response"></div>
+    </form>
+  </div>
+  <script>
+    const form = document.getElementById('chat-form');
+    const textarea = document.getElementById('query');
+    const statusEl = document.getElementById('status');
+    const responseEl = document.getElementById('response');
+    const sendBtn = document.getElementById('send');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = textarea.value.trim();
+      if (!query) {
+        statusEl.textContent = 'Entrez une question.';
+        return;
+      }
+      sendBtn.disabled = true;
+      statusEl.textContent = 'Envoi...';
+      responseEl.textContent = '';
+      try {
+        const res = await fetch(`/chat?query=${encodeURIComponent(query)}`);
+        if (!res.ok) {
+          throw new Error(`Erreur ${res.status}`);
+        }
+        const text = await res.text();
+        responseEl.textContent = text;
+        statusEl.textContent = 'Réponse reçue';
+      } catch (err) {
+        statusEl.textContent = 'Erreur lors de la requête';
+        responseEl.textContent = err.message;
+      } finally {
+        sendBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>

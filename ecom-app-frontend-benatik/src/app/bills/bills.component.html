@@ -1,0 +1,32 @@
+<div class="container mt-3">
+    <h2 *ngIf="customerId">Factures du client {{customerId}}</h2>
+    <h2 *ngIf="!customerId">Toutes les factures</h2>
+
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+    <div *ngIf="loading" class="text-center my-3">
+        <div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
+    </div>
+
+    <table class="table table-striped" *ngIf="bills?.length">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>ID Client</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let b of bills">
+                <td>{{b.id}}</td>
+                <td>{{b.billingDate | date:'short'}}</td>
+                <td>{{b.customerId}}</td>
+                <td>
+                    <button class="btn btn-info" (click)="handleBillDetails(b)">Détails</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="!bills?.length && !loading" class="text-muted">Aucune facture.</div>
+</div>

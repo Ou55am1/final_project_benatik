@@ -1,0 +1,48 @@
+<div class="container mt-3">
+  <h2>Clients</h2>
+
+  <div class="mb-3">
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    <div *ngIf="success" class="alert alert-success">{{success}}</div>
+  </div>
+
+  <form class="row g-3 mb-4" (ngSubmit)="addCustomer()">
+    <div class="col-md-5">
+      <label class="form-label">Nom</label>
+      <input class="form-control" [(ngModel)]="newCustomer.name" name="name" required>
+    </div>
+    <div class="col-md-5">
+      <label class="form-label">Email</label>
+      <input class="form-control" type="email" [(ngModel)]="newCustomer.email" name="email" required>
+    </div>
+    <div class="col-md-2 d-flex align-items-end">
+      <button class="btn btn-primary w-100" type="submit" [disabled]="saving">Ajouter</button>
+    </div>
+  </form>
+
+  <div *ngIf="loading" class="text-center my-3">
+    <div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>
+  </div>
+
+  <table class="table table-striped" *ngIf="customers?.length">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of customers">
+        <td>{{c.id}}</td>
+        <td>{{c.name}}</td>
+        <td>{{c.email}}</td>
+        <td>
+          <button class="btn btn-outline-primary btn-sm" (click)="handleViewBills(c)">Voir factures</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="!customers?.length && !loading" class="text-muted">Aucun client.</div>
+</div>
