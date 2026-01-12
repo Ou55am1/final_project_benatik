@@ -79,13 +79,13 @@ Clients principaux :
 Place les images dans `docs/images/` du frontend ou adapte les chemins.
 
 1. **Bot Telegram — EmsiAIBot** : conversation montrant la liste des produits retournée par le bot.  
-   `![Bot Telegram](ecom-app-frontend-benatik/docs/images/bot-telegram.png)`
+   `![Bot Telegram](images/Bot Telegram.png)`
 2. **Services Spring Boot dans IntelliJ** : vue Services affichant les microservices et requêtes GET.  
-   `![Services IntelliJ](ecom-app-frontend-benatik/docs/images/services-intellij.png)`
+   `![Services IntelliJ](images/Services Spring Boot dans IntelliJ.png)`
 3. **Containers Docker (Keycloak/Kafka/Zookeeper)** : tableau des conteneurs avec ports et consommation.  
-   `![Containers](ecom-app-frontend-benatik/docs/images/containers.png)`
+   `![Containers](images/Containers Docker.png)`
 4. **Interface commande frontend** : tableau récapitulatif d’une commande (produits, quantités, montants).  
-   `![Commande Frontend](ecom-app-frontend-benatik/docs/images/commande-frontend.png)`
+   `![Commande Frontend](images/Interface commande frontend.png)`
 
 ## Structure
 
