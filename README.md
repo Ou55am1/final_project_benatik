@@ -79,13 +79,13 @@ Clients principaux :
 Place les images dans `docs/images/` du frontend ou adapte les chemins.
 
 1. **Bot Telegram — EmsiAIBot** : conversation montrant la liste des produits retournée par le bot.  
-   `![Bot Telegram](images/Bot Telegram.png)`
+   ![Bot Telegram](images/Bot%20Telegram.png)
 2. **Services Spring Boot dans IntelliJ** : vue Services affichant les microservices et requêtes GET.  
-   `![Services IntelliJ](images/Services Spring Boot dans IntelliJ.png)`
+   ![Services IntelliJ](images/Services%20Spring%20Boot%20dans%20IntelliJ.png)
 3. **Containers Docker (Keycloak/Kafka/Zookeeper)** : tableau des conteneurs avec ports et consommation.  
-   `![Containers](images/Containers Docker.png)`
+   ![Containers](images/Containers%20Docker.png)
 4. **Interface commande frontend** : tableau récapitulatif d’une commande (produits, quantités, montants).  
-   `![Commande Frontend](images/Interface commande frontend.png)`
+   ![Commande Frontend](images/Interface%20commande%20frontend.png)
 
 ## Structure
 
