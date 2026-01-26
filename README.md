@@ -99,8 +99,3 @@ Final project/
 ├─ keycloak/realm-export.json  # realm Keycloak import
 └─ kafka_spring_cloud_stream_benatik/ # exemples stream (optionnel)
 ```
-
-## Notes
-
-- Ajuste les ports/URLs si tu changes l’environnement.
-- Mets à jour les captures si tu modifies l’UI, les services ou la configuration.
